@@ -15,15 +15,15 @@ export const ResultBanner: React.FC<ResultBannerProps> = ({
 }) => {
   const formatBytes = useFormatBytes()
   return (
-    <section className="bg-white dark:bg-gray-900">
-      <div className="max-w-screen-xl px-4  mx-auto text-center mb-12">
+    <section className="bg-transparent dark:bg-gray-900">
+      <div className="max-w-screen-xl px-4  mx-auto text-center pb-12 pt-16">
         <dl className="grid max-w-screen-md gap-8 mx-auto text-gray-900 sm:grid-cols-3 dark:text-white">
           <div className="flex flex-col items-center justify-center">
             <dt className="mb-2 text-3xl md:text-4xl font-extrabold">
               {formatBytes(size)}
             </dt>
             <dd className="font-light text-gray-500 dark:text-gray-400">
-              Size
+              Current size
             </dd>
           </div>
           <div className="flex flex-col items-center justify-center">
@@ -31,7 +31,7 @@ export const ResultBanner: React.FC<ResultBannerProps> = ({
               {formatBytes(sizeOptimized)}
             </dt>
             <dd className="font-light text-gray-500 dark:text-gray-400">
-              Size optimized
+              Optimized size
             </dd>
           </div>
           <div className="flex flex-col items-center justify-center">

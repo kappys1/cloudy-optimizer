@@ -1,5 +1,7 @@
 import { useFormatBytes } from '@/hooks/useFormatBytes'
+import { useAutoAnimate } from '@formkit/auto-animate/react'
 import { Badge } from './Badge'
+import { DownloadIcon } from './icons/download'
 import { DownTrendIcon } from './icons/downTrend'
 import { InfoIcon } from './icons/Info'
 import { UpTrendIcon } from './icons/upTrend'
@@ -17,10 +19,12 @@ interface CardImageProps {
 export const CardImage: React.FC<CardImageProps> = ({ image, onClick }) => {
   const formatBytes = useFormatBytes()
   const optimization = (1 - image.sizeOptimized / image.size) * 100
+  const [parent] = useAutoAnimate(/* optional config */)
   return (
     <div
+      ref={parent}
       onClick={onClick && onClick}
-      className="block rounded-lg p-4 shadow-sm shadow-indigo-300 w-80"
+      className="block rounded-lg p-4 shadow-sm shadow-indigo-300 w-80 cursor-pointer hover::cursor-pointer hover:shadow-md hover:shadow-indigo-400 hover:scale-105 transition duration-300 ease-in-out"
     >
       <Image
         alt="Home"

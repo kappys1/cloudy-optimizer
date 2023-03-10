@@ -2,7 +2,7 @@ export const CloudinaryIcon = () => {
   return (
     <svg
       id="cld-main-logo"
-      style={{ height: '20px' }}
+      style={{ height: '16px' }}
       //   style={'height: 30px; width: 160px; margin-bottom: -10px;'}
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 500 96.77"

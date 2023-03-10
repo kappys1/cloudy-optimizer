@@ -54,7 +54,9 @@ export const getAssetsOptimized = async (url: string) => {
       )
       const sumSize = originalAsset.reduce((acc, curr) => acc + curr.size, 0)
       const sumOptimizedSize = originalAsset.reduce(
-        (acc, curr) => acc + curr.sizeOptimized,
+        (acc, curr) =>
+          acc +
+          (curr.sizeOptimized < curr.size ? curr.sizeOptimized : curr.size),
         0
       )
       const optimization = (1 - sumOptimizedSize / sumSize) * 100
