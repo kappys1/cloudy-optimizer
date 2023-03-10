@@ -1,5 +1,5 @@
 import { useModal } from '@/component/Modal/Modal.hook'
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef } from 'react'
 
 export const Modal = ({ children, show, onClose }) => {
   const ref = useRef<HTMLDialogElement>(null)

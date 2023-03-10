@@ -1,11 +1,10 @@
-import { cloudyUrl } from '@/utils/utils'
 import { useEffect } from 'react'
 
 interface ImageEditProps {
   src: string
+  cloudinarySrc: string
 }
-export const ImageEdit: React.FC<ImageEditProps> = ({ src }) => {
-  const cloudinarySrc = cloudyUrl(src)
+export const ImageEdit: React.FC<ImageEditProps> = ({ src, cloudinarySrc }) => {
   useEffect(() => {
     import('two-up-element')
   }, [])

@@ -2,7 +2,7 @@ import Head from 'next/head'
 import 'flowbite'
 import styles from '@/styles/Home.module.css'
 
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { useAutoAnimate } from '@formkit/auto-animate/react'
 import { fetcher } from '@/utils/utils'
 import { Form } from '@/component/Form'
@@ -14,7 +14,7 @@ import { type Response } from '@/lib/getAssetsNode'
 import { CloudinaryIcon } from '@/component/icons/cloudinary'
 import { Loading } from '@/component/Loading'
 import { HomeDownloader } from '@/component/HomeDownloader'
-import autoAnimate from '@formkit/auto-animate'
+import { Toaster } from 'sonner'
 
 export default function Home({ data }: { data: string[] }) {
   const pagesUrl = '/api/pages'
@@ -59,6 +59,7 @@ export default function Home({ data }: { data: string[] }) {
       </Head>
       <div className="isolate bg-white">
         <Background>
+          <Toaster />
           {/* <main> */}
           <div className="mx-auto max-w-6xl mt-24 mb-12 flex justify-center">
             <div className="text-center max-w-4xl">
