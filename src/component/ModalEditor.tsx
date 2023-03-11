@@ -1,20 +1,27 @@
-import { cloudyUrl, downloadImage } from '@/utils/utils'
+import { useFormatBytes } from '@/hooks/useFormatBytes'
+import { type DetailAsset } from '@/lib/getAssetsNode'
+import { cloudyUrl, downloadImage, getNameFromUrl } from '@/utils/utils'
 import { toast } from 'sonner'
+import { Badge } from './Badge'
 import { buttonBlueClassName } from './Button'
+import { DownTrendIcon } from './icons/downTrend'
+import { UpTrendIcon } from './icons/upTrend'
 import { ImageEdit } from './ImageEdit'
 import { Modal } from './Modal/Modal'
 
 interface ModalEditorProps {
   show: boolean
   onClose: () => void
-  src: string
+  item: DetailAsset
 }
 
 export const ModalEditor: React.FC<ModalEditorProps> = ({
   show,
   onClose,
-  src
+  item
 }) => {
+  const formatBytes = useFormatBytes()
+  const { src } = item
   const cloudinarySrc = cloudyUrl(src)
   const codeCloudinarySrc = cloudinarySrc.replace(/demo/g, '[Cloud name]')
 
@@ -26,15 +33,19 @@ export const ModalEditor: React.FC<ModalEditorProps> = ({
     await navigator.clipboard.writeText(codeCloudinarySrc)
     toast.success('Cloudinary URL copied in your clipboard')
   }
+
+  const nameFile = getNameFromUrl(src)
+  const { optimization } = item
+
   return (
     <Modal show={show} onClose={onClose}>
       <div className="relative w-full h-full max-w-7xl md:h-auto">
         {/* <!-- Modal content --> */}
-        <div className="relative bg-white rounded-lg shadow dark:bg-gray-700">
+        <div className="relative bg-white rounded-lg shadow dark:bg-gray-700 ">
           {/* <!-- Modal header --> */}
-          <div className="flex items-center justify-between p-5 border-b rounded-t dark:border-gray-600">
-            <h3 className="text-xl font-medium text-gray-900 dark:text-white">
-              Extra Large modal
+          <div className="flex items-center justify-between py-3 px-6 border-b rounded-t dark:border-gray-600">
+            <h3 className="text-md font-medium text-gray-900 dark:text-white">
+              Detail of {nameFile}
             </h3>
             <button
               onClick={onClose}
@@ -58,14 +69,39 @@ export const ModalEditor: React.FC<ModalEditorProps> = ({
             </button>
           </div>
           {/* <!-- Modal body --> */}
-          <div className="p-6 space-y-6">
-            <ImageEdit src={src} cloudinarySrc={src} />
+          <div className="p-6 ">
+            <ImageEdit src={src} cloudinarySrc={cloudinarySrc} />
+            <div className="flex flex-col">
+              <div className="flex justify-between">
+                <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                  Original Size
+                </label>
+                <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                  Optimized Size
+                </label>
+              </div>
+              <div className="flex justify-between">
+                <div className="flex justify-center">
+                  <div className="">{formatBytes(item?.size)}</div>
+                </div>
+                <div className="flex flex-col justify-center items-end">
+                  <div className="flex gap-2 justify-center items-center">
+                    <div className="">{formatBytes(item?.sizeOptimized)}</div>
+                    <Badge
+                      color={optimization > 0 ? 'bg-green-600' : 'bg-red-600'}
+                      icon={
+                        optimization > 0 ? <UpTrendIcon /> : <DownTrendIcon />
+                      }
+                    >
+                      {+optimization.toFixed(2)}%
+                    </Badge>
+                  </div>
+                </div>
+              </div>
+            </div>
             <div className="pt-4">
               <div className="mb-6">
-                <label
-                  htmlFor="email"
-                  className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                >
+                <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                   Cloudinary URL
                 </label>
                 <div

@@ -1,24 +1,20 @@
 import { useFormatBytes } from '@/hooks/useFormatBytes'
+import { type DetailAsset } from '@/lib/getAssetsNode'
 import { useAutoAnimate } from '@formkit/auto-animate/react'
 import { Badge } from './Badge'
-import { DownloadIcon } from './icons/download'
 import { DownTrendIcon } from './icons/downTrend'
 import { InfoIcon } from './icons/Info'
 import { UpTrendIcon } from './icons/upTrend'
 import { Image } from './Image'
 
 interface CardImageProps {
-  image: {
-    src: string
-    size: number
-    sizeOptimized: number
-  }
+  image: DetailAsset
   onClick?: () => void
 }
 
 export const CardImage: React.FC<CardImageProps> = ({ image, onClick }) => {
   const formatBytes = useFormatBytes()
-  const optimization = (1 - image.sizeOptimized / image.size) * 100
+  const { optimization } = image
   const [parent] = useAutoAnimate(/* optional config */)
   return (
     <div

@@ -10,7 +10,7 @@ import { Background } from '@/component/Background'
 import { CardImage } from '@/component/CardImage'
 import { ModalEditor } from '@/component/ModalEditor'
 import { ResultBanner } from '@/component/ResultBanner'
-import { type Response } from '@/lib/getAssetsNode'
+import { type DetailAsset, type Response } from '@/lib/getAssetsNode'
 import { CloudinaryIcon } from '@/component/icons/cloudinary'
 import { Loading } from '@/component/Loading'
 import { HomeDownloader } from '@/component/HomeDownloader'
@@ -22,7 +22,12 @@ export default function Home({ data }: { data: string[] }) {
   const [showModal, setShowModal] = useState<boolean>(false)
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [showDetail, setShowDetail] = useState<boolean>(false)
-  const [selectedSrc, setSelectedSrc] = useState<string>('')
+  const [selectedAsset, setSelectedAsset] = useState<DetailAsset>({
+    optimization: 0,
+    size: 0,
+    sizeOptimized: 0,
+    src: ''
+  })
   const [parent] = useAutoAnimate(/* optional config */)
 
   const handleSubmit = async (event) => {
@@ -39,9 +44,9 @@ export default function Home({ data }: { data: string[] }) {
     setDataTest(test)
   }
 
-  const handleOnImageClick = (img: string) => {
+  const handleOnImageClick = (img: DetailAsset) => {
     setShowModal(true)
-    setSelectedSrc(img)
+    setSelectedAsset(img)
   }
 
   const handleOnCloseModal = () => {
@@ -59,7 +64,7 @@ export default function Home({ data }: { data: string[] }) {
       </Head>
       <div className="isolate bg-white">
         <Background>
-          <Toaster />
+          <Toaster className="z-50 absolute" />
           {/* <main> */}
           <div className="mx-auto max-w-6xl mt-24 mb-12 flex justify-center">
             <div className="text-center max-w-4xl">
@@ -114,9 +119,8 @@ export default function Home({ data }: { data: string[] }) {
                     <CardImage
                       key={`image-${i}`}
                       image={item}
-                      onClick={(e) => {
-                        e.preventDefault()
-                        handleOnImageClick(item.src)
+                      onClick={() => {
+                        handleOnImageClick(item)
                       }}
                     ></CardImage>
                   )
@@ -128,7 +132,7 @@ export default function Home({ data }: { data: string[] }) {
             <ModalEditor
               show={showModal}
               onClose={handleOnCloseModal}
-              src={selectedSrc}
+              item={selectedAsset}
             />
           )}
         </Background>

@@ -31,14 +31,6 @@ export const ImageEdit: React.FC<ImageEditProps> = ({ src, cloudinarySrc }) => {
             className={'object-contain'}
             src={src}
             alt="Imagen original subida por el usuario"
-            style={
-              {
-                // height: '100%',
-                // width: '100%',
-                // margin: '0 auto',
-                // objectFit: 'contain'
-              }
-            }
           />
         </div>
         <div
@@ -49,14 +41,6 @@ export const ImageEdit: React.FC<ImageEditProps> = ({ src, cloudinarySrc }) => {
             className={'object-contain'}
             src={cloudinarySrc}
             alt="Imagen sin fondo subida por el usuario"
-            style={
-              {
-                // height: '100%'
-                // width: '100%',
-                // margin: '0 auto',
-                // objectFit: 'contain'
-              }
-            }
           />
         </div>
       </two-up>

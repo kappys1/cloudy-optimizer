@@ -9,7 +9,11 @@ const pagesHandler = (
   const bodyParsed = JSON.parse(body)
   const methods: Record<string, () => void> = {
     POST: async () => {
-      const result: any = await getAssetsOptimized(bodyParsed.url)
+      const result: any = await getAssetsOptimized(bodyParsed.url).catch(
+        (e) => {
+          console.log(e)
+        }
+      )
       console.log(result)
       res.status(200).json({ ...result })
     }

@@ -5,6 +5,7 @@ export interface DetailAsset {
   src: string
   size: number
   sizeOptimized: number
+  optimization: number
 }
 
 export interface Response {
@@ -49,7 +50,8 @@ export const getAssetsOptimized = async (url: string) => {
         uniqueSources.map(async (src) => {
           const size = await getFileSize(src)
           const cloudySize = await getFileSize(cloudyUrl(src))
-          return { src, size, sizeOptimized: cloudySize }
+          const optimization = (1 - cloudySize / size) * 100
+          return { src, size, sizeOptimized: cloudySize, optimization }
         })
       )
       const sumSize = originalAsset.reduce((acc, curr) => acc + curr.size, 0)

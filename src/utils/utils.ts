@@ -5,14 +5,22 @@ export const ENV = {
 export const fetcher = async (...args) =>
   await fetch(...args).then(async (res) => await res.json())
 
-export const cloudyUrl = (src: string) =>
-  `https://res.cloudinary.com/${ENV.CLOUDINARY_NAME}/image/fetch/f_auto,q_auto/${src}`
+interface CloudinaryOptions {
+  quality?: number | string
+}
+export const cloudyUrl = (
+  src: string,
+  options: CloudinaryOptions = { quality: 'auto' }
+) =>
+  `https://res.cloudinary.com/${ENV.CLOUDINARY_NAME}/image/fetch/f_auto,q_${options.quality}/${src}`
 
-export async function downloadImage(imageSrc: string) {
+export const getNameFromUrl = (url: string) => /[^/]*$/.exec(url)[0] || ''
+
+export const downloadImage = async (imageSrc: string) => {
   const image = await fetch(imageSrc)
   const imageBlog = await image.blob()
   const imageURL = URL.createObjectURL(imageBlog)
-  const name = /[^/]*$/.exec(imageSrc)[0] || ''
+  const name = getNameFromUrl(imageSrc)
   const link = document.createElement('a')
   link.href = imageURL
   link.download = name || 'image'

@@ -19,12 +19,12 @@ export const HomeDownloader: React.FC<HomeDownloaderProps> = ({ urls }) => {
   return (
     <div className="flex w-full justify-center pb-28 pt-12">
       <div className="flex max-w-3xl w-full gap-16 justify-center items-center">
-        <p className="flex gap-2 items-center">
+        {/* <p className="flex gap-2 items-center">
           <button type="button" className={buttonLightClassName}>
             Upload to cloudinary
             <UploadIcon />
           </button>
-        </p>
+        </p> */}
 
         <p className="flex gap-2 items-center">
           <button
