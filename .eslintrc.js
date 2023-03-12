@@ -26,6 +26,7 @@ module.exports = {
     '@typescript-eslint/prefer-optional-chain': 'off',
     '@typescript-eslint/space-before-function-paren': 'off',
     '@typescript-eslint/prefer-nullish-coalescing': 'off',
+    '@typescript-eslint/promise-function-async': 'off',
 
     '@next/next/no-img-element': 'off',
 

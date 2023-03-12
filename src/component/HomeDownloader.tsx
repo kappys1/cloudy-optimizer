@@ -1,8 +1,15 @@
 import { type DetailAsset } from '@/lib/getAssetsNode'
-import { cloudyUrl, downloadImage } from '@/utils/utils'
+import {
+  cloudyUrl,
+  downloadImage,
+  downloadImageAsZip,
+  fetcher
+} from '@/utils/utils'
+import { toast } from 'sonner'
 import { buttonBlueClassName, buttonLightClassName } from './Button'
 import { DownloadIcon } from './icons/download'
 import { UploadIcon } from './icons/upload'
+import { saveAs } from 'file-saver'
 
 interface HomeDownloaderProps {
   urls: DetailAsset[]
@@ -11,8 +18,18 @@ interface HomeDownloaderProps {
 export const HomeDownloader: React.FC<HomeDownloaderProps> = ({ urls }) => {
   const optimized = urls.filter((url) => url.sizeOptimized < url.size)
   const handleDownload = () => {
-    optimized.map(async (url) => {
-      await downloadImage(cloudyUrl(url.src))
+    const promise = downloadImageAsZip(urls.map((u) => cloudyUrl(u.src))).then(
+      (blob) => {
+        saveAs(blob, 'optimized-images.zip')
+      }
+    )
+
+    toast.promise(promise, {
+      loading: 'Loading...',
+      success: () => {
+        return 'zip with optimized images downloaded'
+      },
+      error: 'Error'
     })
   }
 
