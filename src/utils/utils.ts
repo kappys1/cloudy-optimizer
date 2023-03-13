@@ -4,9 +4,6 @@ export const ENV = {
   CLOUDINARY_NAME: process.env.NEXT_PUBLIC_CLOUDINARY_NAME
 }
 
-export const fetcher = async (...args: any) =>
-  await fetch({ ...args }).then(async (res) => await res.json())
-
 interface CloudinaryOptions {
   quality?: number | string
 }

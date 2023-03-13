@@ -34,12 +34,14 @@ export default function Home({ data }: { data: string[] }) {
     event.preventDefault()
     const url = event.target.url.value
     setIsLoading(true)
-    const test = await fetcher(pagesUrl, {
+    const test = await fetch(pagesUrl, {
       method: 'POST',
       body: JSON.stringify({ url })
-    }).catch(() => {
-      setIsLoading(false)
     })
+      .then(async (res) => await res.json())
+      .catch(() => {
+        setIsLoading(false)
+      })
     setIsLoading(false)
     setDataTest(test)
   }
