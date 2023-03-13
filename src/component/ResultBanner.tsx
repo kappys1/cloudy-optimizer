@@ -43,7 +43,7 @@ export const ResultBanner: React.FC<ResultBannerProps> = ({
               {optimization > 0 ? (
                 <UpTrendIcon className="text-green-700 w-8 h-8" />
               ) : (
-                <DownTrendIcon className="text-green-700 w-8 h-8" />
+                <DownTrendIcon className="text-red-700 w-8 h-8" />
               )}
               {+optimization.toFixed(2)}%
             </dt>

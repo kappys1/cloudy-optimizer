@@ -28,6 +28,7 @@ export const getAssetsOptimized = async (url: string) => {
   return await fetch(url)
     .then(async (r) => await r.text())
     .then(async (html) => {
+      console.log(html)
       const $ = cheerio.load(html)
       const images: string[] = []
       $('img').map(async (_i, el) => {
@@ -45,6 +46,7 @@ export const getAssetsOptimized = async (url: string) => {
           images.push(source)
         }
       })
+
       const uniqueSources = [...new Set(images)]
       const originalAsset = await Promise.all(
         uniqueSources.map(async (src) => {
@@ -67,6 +69,14 @@ export const getAssetsOptimized = async (url: string) => {
         totalOptimizedSize: sumOptimizedSize,
         optimization,
         detail: originalAsset
+      }
+    })
+    .catch((e) => {
+      return {
+        totalSize: 0,
+        totalOptimizedSize: 0,
+        optimization: 0,
+        detail: []
       }
     })
 }

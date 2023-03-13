@@ -16,7 +16,6 @@ export const CardImage: React.FC<CardImageProps> = ({ image, onClick }) => {
   const formatBytes = useFormatBytes()
   const { optimization } = image
   const [parent] = useAutoAnimate(/* optional config */)
-  console.log(optimization)
   return (
     <div
       ref={parent}

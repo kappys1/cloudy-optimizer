@@ -4,6 +4,15 @@ export const ENV = {
   CLOUDINARY_NAME: process.env.NEXT_PUBLIC_CLOUDINARY_NAME
 }
 
+export const isValidUrl = (string: string) => {
+  try {
+    // eslint-disable-next-line no-new
+    new URL(string)
+    return true
+  } catch (err) {
+    return false
+  }
+}
 interface CloudinaryOptions {
   quality?: number | string
 }

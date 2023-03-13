@@ -68,7 +68,7 @@ export default function Home({ data }: { data: string[] }) {
       </Head>
       <div className="isolate bg-white">
         <Background>
-          <Toaster className="z-50 absolute" />
+          <Toaster richColors position="top-right" />
           {/* <main> */}
           <div className="mx-auto max-w-6xl mt-24 mb-12 flex justify-center">
             <div className="text-center max-w-4xl">
@@ -96,7 +96,7 @@ export default function Home({ data }: { data: string[] }) {
           )}
 
           <div ref={parent}>
-            {!isLoading && dataTest && (
+            {!isLoading && dataTest && dataTest.detail && (
               <>
                 <ResultBanner
                   optimization={dataTest.optimization}
@@ -117,7 +117,7 @@ export default function Home({ data }: { data: string[] }) {
               </>
             )}
 
-            {!isLoading && dataTest && showDetail && (
+            {!isLoading && dataTest && dataTest.detail && showDetail && (
               <div className={styles.grid}>
                 {dataTest.detail?.map((item, i) => {
                   return (
