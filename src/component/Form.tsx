@@ -10,10 +10,10 @@ interface FormProps {
 }
 export const Form: React.FC<FormProps> = ({ onSubmit, isLoading }) => {
   const [isError, setIsError] = useState(false)
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (e: any) => {
     e.preventDefault()
     setIsError(false)
-    if (isValidUrl(e.target.url?.value)) {
+    if (isValidUrl(e.target.url.value)) {
       onSubmit(e)
     } else {
       toast.error('Please enter a valid URL')
