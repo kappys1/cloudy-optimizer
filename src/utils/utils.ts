@@ -18,6 +18,24 @@ export const cloudyUrl = (
 
 export const getNameFromUrl = (url: string) => /[^/]*$/.exec(url)[0] || ''
 
+export const downloadImage = async (imageSrc: string) => {
+  const image = await fetch(imageSrc, {
+    method: 'GET',
+    headers: {
+      accept: 'image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8'
+    }
+  })
+  const imageBlog = await image.blob()
+  const imageURL = URL.createObjectURL(imageBlog)
+  const name = getNameFromUrl(imageSrc)
+  const link = document.createElement('a')
+  link.href = imageURL
+  link.download = name.split('.')[0] || 'image'
+  document.body.appendChild(link)
+  link.click()
+  document.body.removeChild(link)
+}
+
 export const downloadImageAsZip = async (urls: string[]) => {
   const imgPromises = urls.map((src) => fetch(src))
   const images = await Promise.allSettled(imgPromises)

@@ -1,6 +1,7 @@
 import { useFormatBytes } from '@/hooks/useFormatBytes'
 import { type DetailAsset } from '@/lib/getAssetsNode'
 import { cloudyUrl, downloadImage, getNameFromUrl } from '@/utils/utils'
+import React from 'react'
 import { toast } from 'sonner'
 import { Badge } from './Badge'
 import { buttonBlueClassName } from './Button'
@@ -20,22 +21,35 @@ export const ModalEditor: React.FC<ModalEditorProps> = ({
   onClose,
   item
 }) => {
+  const [quality, setQuality] = React.useState<number | string>('auto')
+  const [sizeOptimizedImage, setSizeOptimizedImage] = React.useState<number>(
+    item?.sizeOptimized
+  )
+  const [optimization, setOptimization] = React.useState<number>(
+    item?.optimization
+  )
+
   const formatBytes = useFormatBytes()
   const { src } = item
-  const cloudinarySrc = cloudyUrl(src)
+  const cloudinarySrc = cloudyUrl(src, { quality })
   const codeCloudinarySrc = cloudinarySrc.replace(/demo/g, '[Cloud name]')
 
   const handleDownload = async () => {
     await downloadImage(cloudinarySrc)
-    close()
   }
+
   const handleCopy = async () => {
     await navigator.clipboard.writeText(codeCloudinarySrc)
     toast.success('Cloudinary URL copied in your clipboard')
   }
 
+  const handleChangeBytesImage = (bytes: number) => {
+    setSizeOptimizedImage(bytes)
+    const optimization = (1 - bytes / item.size) * 100
+    setOptimization(optimization)
+  }
+
   const nameFile = getNameFromUrl(src)
-  const { optimization } = item
 
   return (
     <Modal show={show} onClose={onClose}>
@@ -70,7 +84,11 @@ export const ModalEditor: React.FC<ModalEditorProps> = ({
           </div>
           {/* <!-- Modal body --> */}
           <div className="p-6 ">
-            <ImageEdit src={src} cloudinarySrc={cloudinarySrc} />
+            <ImageEdit
+              src={src}
+              cloudinarySrc={cloudinarySrc}
+              onChange={handleChangeBytesImage}
+            />
             <div className="flex flex-col">
               <div className="flex justify-between">
                 <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
@@ -86,7 +104,7 @@ export const ModalEditor: React.FC<ModalEditorProps> = ({
                 </div>
                 <div className="flex flex-col justify-center items-end">
                   <div className="flex gap-2 justify-center items-center">
-                    <div className="">{formatBytes(item?.sizeOptimized)}</div>
+                    <div className="">{formatBytes(sizeOptimizedImage)}</div>
                     <Badge
                       color={optimization > 0 ? 'bg-green-600' : 'bg-red-600'}
                       icon={
@@ -100,7 +118,7 @@ export const ModalEditor: React.FC<ModalEditorProps> = ({
               </div>
             </div>
             <div className="pt-4">
-              <div className="mb-6">
+              <div className="mb-4">
                 <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                   Cloudinary URL
                 </label>
@@ -109,6 +127,48 @@ export const ModalEditor: React.FC<ModalEditorProps> = ({
                   onClick={handleCopy}
                 >
                   {codeCloudinarySrc}
+                </div>
+              </div>
+            </div>
+            <div className="pt-4">
+              <div className="mb-2">
+                <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white mt-2">
+                  Edit
+                </label>
+                <div className="flex flex-col gap-2">
+                  <label
+                    htmlFor="default-range"
+                    className="block mb-2 text-sm font-medium text-gray-900 dark:text-white mt-2"
+                  >
+                    Quality
+                  </label>
+                  <div className="mb-2">
+                    {quality === 'auto' ? quality : `${quality}%`}
+                  </div>
+                  <label className="relative inline-flex items-center cursor-pointer mb-2">
+                    <input
+                      type="checkbox"
+                      value="auto"
+                      className="sr-only peer"
+                      onChange={(val) => {
+                        setQuality(val.target.value)
+                      }}
+                      checked={quality === 'auto'}
+                    />
+                    <div className="w-11 h-6 bg-gray-200 rounded-full peer peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
+                    <span className="ml-3 text-sm font-medium text-gray-900 dark:text-gray-300">
+                      Auto
+                    </span>
+                  </label>
+                  <input
+                    onChange={(val) => {
+                      setQuality(val.target.value)
+                    }}
+                    id="default-range"
+                    type="range"
+                    value={quality}
+                    className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700"
+                  />
                 </div>
               </div>
             </div>

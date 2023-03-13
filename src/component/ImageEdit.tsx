@@ -3,8 +3,13 @@ import { useEffect } from 'react'
 interface ImageEditProps {
   src: string
   cloudinarySrc: string
+  onChange: (bytes: number) => void
 }
-export const ImageEdit: React.FC<ImageEditProps> = ({ src, cloudinarySrc }) => {
+export const ImageEdit: React.FC<ImageEditProps> = ({
+  src,
+  cloudinarySrc,
+  onChange
+}) => {
   useEffect(() => {
     import('two-up-element')
   }, [])
@@ -12,7 +17,7 @@ export const ImageEdit: React.FC<ImageEditProps> = ({ src, cloudinarySrc }) => {
   const observer = new PerformanceObserver((list, observer) => {
     list.getEntriesByName(cloudinarySrc).forEach((entry) => {
       if (entry.decodedBodySize) {
-        console.log('decodedBodySize', entry.decodedBodySize)
+        onChange && onChange(entry.decodedBodySize)
         observer.disconnect()
       }
     })
