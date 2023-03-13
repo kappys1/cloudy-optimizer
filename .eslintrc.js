@@ -27,6 +27,7 @@ module.exports = {
     '@typescript-eslint/space-before-function-paren': 'off',
     '@typescript-eslint/prefer-nullish-coalescing': 'off',
     '@typescript-eslint/promise-function-async': 'off',
+    '@typescript-eslint/restrict-template-expressions': 'off',
 
     '@next/next/no-img-element': 'off',
 

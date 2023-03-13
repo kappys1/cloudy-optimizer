@@ -1,22 +1,25 @@
 import { useCallback, useEffect, useState } from 'react'
 
-export const useModal = (element: HTMLDialogElement, defaultOpen = false) => {
+export const useModal = (
+  element: HTMLDialogElement | null,
+  defaultOpen = false
+) => {
   const modalElm = element
   const [isOpen, setIsOpen] = useState(defaultOpen)
 
   const close = useCallback(() => {
     setIsOpen(false)
-    modalElm.close()
+    modalElm && modalElm.close()
   }, [modalElm])
 
   const open = useCallback(() => {
     setIsOpen(true)
-    modalElm.showModal()
+    modalElm && modalElm.showModal()
   }, [modalElm])
 
   useEffect(() => {
     if (isOpen) {
-      const detectOutsideClick = (event) => {
+      const detectOutsideClick = (event: any) => {
         if (event.target.nodeName === 'DIALOG') {
           close()
         }

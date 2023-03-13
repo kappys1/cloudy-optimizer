@@ -1,7 +1,11 @@
 import { useModal } from '@/component/Modal/Modal.hook'
 import { useEffect, useRef } from 'react'
-
-export const Modal = ({ children, show, onClose }) => {
+interface ModalProps {
+  children: React.ReactNode
+  show: boolean
+  onClose?: () => void
+}
+export const Modal: React.FC<ModalProps> = ({ children, show, onClose }) => {
   const ref = useRef<HTMLDialogElement>(null)
   const { close, isOpen, open } = useModal(ref.current)
 

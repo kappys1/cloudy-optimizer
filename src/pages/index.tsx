@@ -30,7 +30,7 @@ export default function Home({ data }: { data: string[] }) {
   })
   const [parent] = useAutoAnimate(/* optional config */)
 
-  const handleSubmit = async (event) => {
+  const handleSubmit = async (event: any) => {
     event.preventDefault()
     const url = event.target.url.value
     setIsLoading(true)
@@ -69,7 +69,8 @@ export default function Home({ data }: { data: string[] }) {
           <div className="mx-auto max-w-6xl mt-24 mb-12 flex justify-center">
             <div className="text-center max-w-4xl">
               <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">
-                Optimize the size of your website images
+                <span className={'text-blue-700'}>Optimize</span> the size of
+                your website images
               </h1>
               <p className="mt-6 text-lg leading-8 text-gray-600">
                 Introduce your website URL and see how you can improve your

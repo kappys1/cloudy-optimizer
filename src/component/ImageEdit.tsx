@@ -15,7 +15,7 @@ export const ImageEdit: React.FC<ImageEditProps> = ({
   }, [])
 
   const observer = new PerformanceObserver((list, observer) => {
-    list.getEntriesByName(cloudinarySrc).forEach((entry) => {
+    list.getEntriesByName(cloudinarySrc).forEach((entry: any) => {
       if (entry.decodedBodySize) {
         onChange && onChange(entry.decodedBodySize)
         observer.disconnect()

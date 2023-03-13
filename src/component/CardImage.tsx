@@ -16,6 +16,7 @@ export const CardImage: React.FC<CardImageProps> = ({ image, onClick }) => {
   const formatBytes = useFormatBytes()
   const { optimization } = image
   const [parent] = useAutoAnimate(/* optional config */)
+  console.log(optimization)
   return (
     <div
       ref={parent}
@@ -48,7 +49,7 @@ export const CardImage: React.FC<CardImageProps> = ({ image, onClick }) => {
               color={optimization > 0 ? 'bg-green-600' : 'bg-red-600'}
               icon={optimization > 0 ? <UpTrendIcon /> : <DownTrendIcon />}
             >
-              {+optimization.toFixed(2)}%
+              {optimization && `${+optimization.toFixed(2)}%`}
             </Badge>
           </div>
         </div>

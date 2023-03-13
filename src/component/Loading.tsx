@@ -1,4 +1,7 @@
-export const Loading = ({ className }) => (
+interface LoadingProps {
+  className?: string
+}
+export const Loading: React.FC<LoadingProps> = ({ className = '' }) => (
   <svg
     aria-hidden="true"
     className={`mr-2 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600 ${className}`}

@@ -1,4 +1,4 @@
-import { cloudyUrl, ENV } from '@/utils/utils'
+import { cloudyUrl } from '@/utils/utils'
 import * as cheerio from 'cheerio'
 
 export interface DetailAsset {

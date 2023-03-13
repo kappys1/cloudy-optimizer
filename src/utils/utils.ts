@@ -4,8 +4,8 @@ export const ENV = {
   CLOUDINARY_NAME: process.env.NEXT_PUBLIC_CLOUDINARY_NAME
 }
 
-export const fetcher = async (...args) =>
-  await fetch(...args).then(async (res) => await res.json())
+export const fetcher = async (...args: any) =>
+  await fetch({ ...args }).then(async (res) => await res.json())
 
 interface CloudinaryOptions {
   quality?: number | string
@@ -16,7 +16,10 @@ export const cloudyUrl = (
 ) =>
   `https://res.cloudinary.com/${ENV.CLOUDINARY_NAME}/image/fetch/f_auto,q_${options.quality}/${src}`
 
-export const getNameFromUrl = (url: string) => /[^/]*$/.exec(url)[0] || ''
+export const getNameFromUrl = (url: string = '') => {
+  const regex = /[^/]*$/.exec(url)
+  return (regex && regex[0]) || ''
+}
 
 export const downloadImage = async (imageSrc: string) => {
   const image = await fetch(imageSrc, {
@@ -42,7 +45,7 @@ export const downloadImageAsZip = async (urls: string[]) => {
   const zip = new JSZip()
   images
     .filter((i) => i.status === 'fulfilled')
-    .forEach((d, i) => {
+    .forEach((d: any, i) => {
       const name = getNameFromUrl(urls[i])
       zip?.file(name, d.value?.blob())
     })

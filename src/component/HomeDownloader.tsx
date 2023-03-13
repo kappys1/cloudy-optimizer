@@ -1,14 +1,8 @@
 import { type DetailAsset } from '@/lib/getAssetsNode'
-import {
-  cloudyUrl,
-  downloadImage,
-  downloadImageAsZip,
-  fetcher
-} from '@/utils/utils'
+import { cloudyUrl, downloadImageAsZip } from '@/utils/utils'
 import { toast } from 'sonner'
-import { buttonBlueClassName, buttonLightClassName } from './Button'
+import { buttonBlueClassName } from './Button'
 import { DownloadIcon } from './icons/download'
-import { UploadIcon } from './icons/upload'
 import { saveAs } from 'file-saver'
 
 interface HomeDownloaderProps {
