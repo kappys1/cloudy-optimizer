@@ -4,7 +4,6 @@ import styles from '@/styles/Home.module.css'
 
 import { useState } from 'react'
 import { useAutoAnimate } from '@formkit/auto-animate/react'
-import { fetcher } from '@/utils/utils'
 import { Form } from '@/component/Form'
 import { Background } from '@/component/Background'
 import { CardImage } from '@/component/CardImage'
