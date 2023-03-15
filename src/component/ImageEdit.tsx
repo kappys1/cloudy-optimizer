@@ -1,4 +1,5 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
+import { Loading } from './Loading'
 
 interface ImageEditProps {
   src: string
@@ -10,9 +11,8 @@ export const ImageEdit: React.FC<ImageEditProps> = ({
   cloudinarySrc,
   onChange
 }) => {
-  useEffect(() => {
-    import('two-up-element')
-  }, [])
+  const [imgLoading, setImgLoading] = useState<boolean>(true)
+  const [imgLoading2, setImgLoading2] = useState<boolean>(true)
 
   const observer = new PerformanceObserver((list, observer) => {
     list.getEntriesByName(cloudinarySrc).forEach((entry: any) => {
@@ -25,6 +25,10 @@ export const ImageEdit: React.FC<ImageEditProps> = ({
 
   observer.observe({ entryTypes: ['resource'] })
 
+  useEffect(() => {
+    import('two-up-element')
+  }, [])
+
   return (
     <div>
       <two-up class="flex-1" style={{ height: '350px' }}>
@@ -32,9 +36,27 @@ export const ImageEdit: React.FC<ImageEditProps> = ({
           className="text-center flex justify-center"
           style={{ height: 'inherit' }}
         >
+          {imgLoading && (
+            <div
+              style={{
+                display: 'flex',
+                justifyContent: 'flex-start'
+                // alignItems: 'center'
+              }}
+            >
+              <Loading className="w-16" />
+            </div>
+          )}
           <img
             className={'object-contain'}
             src={src}
+            loading="lazy"
+            width={350}
+            height={350}
+            onLoad={() => {
+              setImgLoading(false)
+            }}
+            style={{ objectFit: 'contain' }}
             alt="Imagen original subida por el usuario"
           />
         </div>
@@ -42,9 +64,28 @@ export const ImageEdit: React.FC<ImageEditProps> = ({
           className="text-center flex justify-center"
           style={{ height: 'inherit' }}
         >
+          {imgLoading2 && (
+            <div
+              style={{
+                width: '100%',
+                display: 'flex',
+                justifyContent: 'flex-end'
+                // alignItems: 'center'
+              }}
+            >
+              <Loading className="w-16" />
+            </div>
+          )}
           <img
             className={'object-contain'}
             src={cloudinarySrc}
+            loading="lazy"
+            width={350}
+            height={350}
+            onLoad={() => {
+              setImgLoading2(false)
+            }}
+            style={{ objectFit: 'contain' }}
             alt="Imagen sin fondo subida por el usuario"
           />
         </div>

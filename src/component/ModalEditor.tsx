@@ -51,8 +51,12 @@ export const ModalEditor: React.FC<ModalEditorProps> = ({
 
   const nameFile = getNameFromUrl(src)
 
+  const handleOnClose = () => {
+    setQuality('auto')
+    onClose()
+  }
   return (
-    <Modal show={show} onClose={onClose}>
+    <Modal show={show} onClose={handleOnClose}>
       <div className="relative w-full h-full max-w-7xl md:h-auto">
         {/* <!-- Modal content --> */}
         <div className="relative bg-white rounded-lg shadow dark:bg-gray-700 ">
@@ -62,7 +66,7 @@ export const ModalEditor: React.FC<ModalEditorProps> = ({
               Detail of {nameFile}
             </h3>
             <button
-              onClick={onClose}
+              onClick={handleOnClose}
               type="button"
               className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white"
             >
