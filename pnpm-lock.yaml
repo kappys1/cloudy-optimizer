@@ -20,6 +20,7 @@ specifiers:
   file-saver: ^2.0.5
   flowbite: ^1.6.3
   jszip: ^3.10.1
+  just-debounce-it: ^3.2.0
   next: 13.2.3
   panzoom: ^9.4.3
   postcss: ^8.4.21
@@ -43,6 +44,7 @@ dependencies:
   file-saver: 2.0.5
   flowbite: 1.6.3
   jszip: 3.10.1
+  just-debounce-it: 3.2.0
   next: 13.2.3_biqbaboplfbrettd7655fr4n2y
   panzoom: 9.4.3
   probe-image-size: 7.2.3
@@ -1972,6 +1974,10 @@ packages:
       pako: 1.0.11
       readable-stream: 2.3.8
       setimmediate: 1.0.5
+    dev: false
+
+  /just-debounce-it/3.2.0:
+    resolution: {integrity: sha512-WXzwLL0745uNuedrCsCs3rpmfD6DBaf7uuVwaq98/8dafURfgQaBsSpjiPp5+CW6Vjltwy9cOGI6qE71b3T8iQ==}
     dev: false
 
   /language-subtag-registry/0.3.22:

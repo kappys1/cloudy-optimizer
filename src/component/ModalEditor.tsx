@@ -9,6 +9,7 @@ import { DownTrendIcon } from './icons/downTrend'
 import { UpTrendIcon } from './icons/upTrend'
 import { ImageEdit } from './ImageEdit'
 import { Modal } from './Modal/Modal'
+import debounce from 'just-debounce-it'
 
 interface ModalEditorProps {
   show: boolean
@@ -51,6 +52,12 @@ export const ModalEditor: React.FC<ModalEditorProps> = ({
 
   const nameFile = getNameFromUrl(src)
 
+  const handleOnSlideChange = debounce(
+    (val: React.ChangeEvent<HTMLInputElement>) => {
+      setQuality(val.target.value)
+    },
+    250
+  )
   const handleOnClose = () => {
     setQuality('auto')
     onClose()
@@ -166,11 +173,11 @@ export const ModalEditor: React.FC<ModalEditorProps> = ({
                   </label>
                   <input
                     onChange={(val) => {
-                      setQuality(val.target.value)
+                      handleOnSlideChange(val)
                     }}
                     id="default-range"
                     type="range"
-                    value={quality}
+                    // value={quality}
                     className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700"
                   />
                 </div>

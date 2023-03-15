@@ -41,7 +41,10 @@ export const HomeDownloader: React.FC<HomeDownloaderProps> = ({ urls }) => {
           <button
             onClick={handleDownload}
             type="submit"
-            className={buttonBlueClassName}
+            disabled={optimized.length === 0}
+            className={`${buttonBlueClassName} ${
+              optimized.length === 0 && 'cursor-not-allowed'
+            }`}
           >
             Download {optimized.length} optimized images <DownloadIcon />
           </button>

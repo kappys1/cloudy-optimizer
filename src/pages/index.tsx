@@ -96,7 +96,7 @@ export default function Home({ data }: { data: string[] }) {
           )}
 
           <div ref={parent}>
-            {!isLoading && dataTest && dataTest.detail && (
+            {!isLoading && dataTest && (
               <>
                 <ResultBanner
                   optimization={dataTest.optimization}
@@ -104,16 +104,18 @@ export default function Home({ data }: { data: string[] }) {
                   sizeOptimized={dataTest.totalOptimizedSize}
                 />
                 <HomeDownloader urls={dataTest.detail} />
-                <div
-                  className="text-center text-blue-500 cursor-pointer"
-                  onClick={() => {
-                    setShowDetail(!showDetail)
-                  }}
-                >
-                  <p className="pb-8">
-                    {showDetail ? 'Hide' : 'Show more '} details
-                  </p>
-                </div>
+                {dataTest.detail.length > 0 && (
+                  <div
+                    className="text-center text-blue-500 cursor-pointer"
+                    onClick={() => {
+                      setShowDetail(!showDetail)
+                    }}
+                  >
+                    <p className="pb-8">
+                      {showDetail ? 'Hide' : 'Show more '} details
+                    </p>
+                  </div>
+                )}
               </>
             )}
 
@@ -133,7 +135,7 @@ export default function Home({ data }: { data: string[] }) {
               </div>
             )}
           </div>
-          {dataTest && (
+          {dataTest && dataTest.detail.length > 0 && (
             <ModalEditor
               show={showModal}
               onClose={handleOnCloseModal}

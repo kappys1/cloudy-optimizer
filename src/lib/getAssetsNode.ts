@@ -63,7 +63,7 @@ export const getAssetsOptimized = async (url: string) => {
           (curr.sizeOptimized < curr.size ? curr.sizeOptimized : curr.size),
         0
       )
-      const optimization = (1 - sumOptimizedSize / sumSize) * 100
+      const optimization = (1 - sumOptimizedSize / sumSize) * 100 || 0
       return {
         totalSize: sumSize,
         totalOptimizedSize: sumOptimizedSize,
