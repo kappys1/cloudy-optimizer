@@ -10,11 +10,13 @@ export const useModal = (
   const close = useCallback(() => {
     setIsOpen(false)
     modalElm && modalElm.close()
+    document.body.style.overflow = ''
   }, [modalElm])
 
   const open = useCallback(() => {
     setIsOpen(true)
     modalElm && modalElm.showModal()
+    document.body.style.overflow = 'hidden'
   }, [modalElm])
 
   useEffect(() => {
