@@ -28,22 +28,39 @@ export const getAssetsOptimized = async (url: string) => {
   return await fetch(url)
     .then(async (r) => await r.text())
     .then(async (html) => {
-      console.log(html)
       const $ = cheerio.load(html)
       const images: string[] = []
       $('img').map(async (_i, el) => {
         const src = el.attribs.src
         if (src && !src.includes(';base64')) {
-          const source = isAbsolutePath(src) ? src : url + src
-          images.push(source)
+          if (isAbsolutePath(src)) {
+            images.push(src)
+            return src
+          }
+          if (src.indexOf('//') === 0) {
+            const source = src.replace('//', 'https://')
+            images.push(source)
+            return source
+          }
+          images.push(url + src)
+          return url + src
         }
       })
 
       $('source').map(async (i, el) => {
         const src = el.attribs['data-srcset']
         if (src && !src.includes(';base64')) {
-          const source = isAbsolutePath(src) ? src : url + src
-          images.push(source)
+          if (isAbsolutePath(src)) {
+            images.push(src)
+            return src
+          }
+          if (src.indexOf('//') === 0) {
+            const source = src.replace('//', 'https://')
+            images.push(source)
+            return source
+          }
+          images.push(url + src)
+          return url + src
         }
       })
 
