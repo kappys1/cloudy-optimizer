@@ -1,5 +1,5 @@
 <div align="center">
-  <img alt="Optimize your images" src="https://i.imgur.com/BMkZDr9.png" width="500" />
+  <img alt="Optimize your images" src="https://i.imgur.com/BMkZDr9.png" width="70%" />
 
   <h1>Cloudy optimizer</h1>
   Optimize the size of your website images and download directly from Cloudy optimizer
