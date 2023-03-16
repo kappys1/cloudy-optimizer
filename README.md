@@ -4,7 +4,7 @@
   <h1>Cloudy optimizer</h1>
   Optimize the size of your website images and download directly with Cloudy optimizer
 
-  **[cloudy-optimizer.vercel.app](cloudy-optimizer.vercel.app)**
+  **[Cloudinary optimizer website](https://cloudy-optimizer.vercel.app/)**
 </div>
 
 
