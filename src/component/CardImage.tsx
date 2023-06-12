@@ -2,10 +2,10 @@ import { useFormatBytes } from '@/hooks/useFormatBytes'
 import { type DetailAsset } from '@/lib/getAssetsNode'
 import { useAutoAnimate } from '@formkit/auto-animate/react'
 import { Badge } from './Badge'
-import { DownTrendIcon } from './icons/downTrend'
-import { InfoIcon } from './icons/Info'
-import { UpTrendIcon } from './icons/upTrend'
 import { Image } from './Image'
+import { InfoIcon } from './icons/Info'
+import { DownTrendIcon } from './icons/downTrend'
+import { UpTrendIcon } from './icons/upTrend'
 
 interface CardImageProps {
   image: DetailAsset
@@ -25,7 +25,7 @@ export const CardImage: React.FC<CardImageProps> = ({ image, onClick }) => {
       <Image
         alt="Home"
         src={image.src}
-        className="h-56 w-full rounded-md object-cover"
+        className="h-56 w-full rounded-md"
       />
 
       <div className="mt-6 flex items-center gap-4 text-xs justify-between">

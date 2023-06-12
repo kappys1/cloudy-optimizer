@@ -1,18 +1,18 @@
-import Head from 'next/head'
-import 'flowbite'
 import styles from '@/styles/Home.module.css'
+import 'flowbite'
+import Head from 'next/head'
 
-import { useState } from 'react'
-import { useAutoAnimate } from '@formkit/auto-animate/react'
-import { Form } from '@/component/Form'
 import { Background } from '@/component/Background'
 import { CardImage } from '@/component/CardImage'
+import { Form } from '@/component/Form'
+import { HomeDownloader } from '@/component/HomeDownloader'
+import { Loading } from '@/component/Loading'
 import { ModalEditor } from '@/component/ModalEditor'
 import { ResultBanner } from '@/component/ResultBanner'
-import { type DetailAsset, type Response } from '@/lib/getAssetsNode'
 import { CloudinaryIcon } from '@/component/icons/cloudinary'
-import { Loading } from '@/component/Loading'
-import { HomeDownloader } from '@/component/HomeDownloader'
+import { type DetailAsset, type Response } from '@/lib/getAssetsNode'
+import { useAutoAnimate } from '@formkit/auto-animate/react'
+import { useState } from 'react'
 import { Toaster } from 'sonner'
 
 export default function Home({ data }: { data: string[] }) {
@@ -51,7 +51,6 @@ export default function Home({ data }: { data: string[] }) {
   }
 
   const handleOnCloseModal = () => {
-    console.log('close')
     setShowModal(false)
   }
 

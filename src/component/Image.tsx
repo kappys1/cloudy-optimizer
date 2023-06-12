@@ -1,4 +1,3 @@
-import NextImage from 'next/image'
 import { useRef, useState } from 'react'
 
 export interface ImageProps {
@@ -23,16 +22,15 @@ export const Image = ({ src, alt, height, width, className }: ImageProps) => {
   return (
     <>
       <div style={{ color: 'white' }}>{show ? 'show' : 'not show'}</div>
-      <div style={{ width: '300px', height: '100px', position: 'relative' }}>
-        <NextImage
+      <div className='w-[300px] h-[100px] relative'>
+        <img
           src={src}
           alt={alt}
           ref={ref}
+
           {...(height && width ? staticWidth : {})}
-          fill={!(height && width)}
-          style={{ objectFit: 'contain' }}
           onClick={handleClick}
-          className={className}
+          className={`${className} h-full object-contain`}
         />
       </div>
     </>

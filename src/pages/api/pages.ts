@@ -14,7 +14,6 @@ const pagesHandler = (
           console.log(e)
         }
       )
-      console.log(result)
       res.status(200).json({ ...result })
     }
   }
