@@ -42,7 +42,7 @@ export const Hero = ({ onSubmit }: HeroProps) => {
           </h1>
           {!cloudinaryName && (
             <>
-              <p className='mt-6 text-lg leading-8 text-gray-600'>
+              <p className='mt-6 text-2xl leading-8 text-gray-600'>
                 Introduce your cloudinary name to get started
               </p>
               <div className='mt-24'>
@@ -52,7 +52,7 @@ export const Hero = ({ onSubmit }: HeroProps) => {
           )}
           {cloudinaryName && (
             <>
-              <p className='mt-6 text-lg leading-8 text-gray-600'>
+              <p className='mt-6 text-xl leading-8 text-gray-600'>
                 Introduce your website URL and see how you can improve your
                 images
               </p>
