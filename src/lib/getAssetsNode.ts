@@ -6,6 +6,7 @@ export interface DetailAsset {
   size: number
   sizeOptimized: number
   optimization: number
+  cloudinaryName: string
 }
 
 export interface Response {
@@ -24,7 +25,10 @@ export const getFileSize = async (url: string) => {
 export const isAbsolutePath = (url: string) =>
   url.indexOf('http://') === 0 || url.indexOf('https://') === 0
 
-export const getAssetsOptimized = async (url: string) => {
+export const getAssetsOptimized = async (
+  url: string,
+  cloudinaryName: string
+) => {
   return await fetch(url)
     .then(async (r) => await r.text())
     .then(async (html) => {
@@ -68,9 +72,16 @@ export const getAssetsOptimized = async (url: string) => {
       const originalAsset = await Promise.all(
         uniqueSources.map(async (src) => {
           const size = await getFileSize(src)
-          const cloudySize = await getFileSize(cloudyUrl(src))
+          const cloudinarySrc = cloudyUrl(src, cloudinaryName)
+          const cloudySize = await getFileSize(cloudinarySrc)
           const optimization = (1 - cloudySize / size) * 100
-          return { src, size, sizeOptimized: cloudySize, optimization }
+          return {
+            src,
+            size,
+            sizeOptimized: cloudySize,
+            optimization,
+            cloudinaryName
+          }
         })
       )
       const sumSize = originalAsset.reduce((acc, curr) => acc + curr.size, 0)

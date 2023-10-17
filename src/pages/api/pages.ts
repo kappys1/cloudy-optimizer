@@ -9,11 +9,12 @@ const pagesHandler = (
   const bodyParsed = JSON.parse(body)
   const methods: Record<string, () => void> = {
     POST: async () => {
-      const result: any = await getAssetsOptimized(bodyParsed.url).catch(
-        (e) => {
-          console.log(e)
-        }
-      )
+      const result: any = await getAssetsOptimized(
+        bodyParsed.url,
+        bodyParsed.cloudinaryName
+      ).catch((e) => {
+        console.log(e)
+      })
       res.status(200).json({ ...result })
     }
   }

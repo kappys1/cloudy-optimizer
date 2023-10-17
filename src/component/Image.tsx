@@ -27,7 +27,6 @@ export const Image = ({ src, alt, height, width, className }: ImageProps) => {
           src={src}
           alt={alt}
           ref={ref}
-
           {...(height && width ? staticWidth : {})}
           onClick={handleClick}
           className={`${className} h-full object-contain`}

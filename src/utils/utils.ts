@@ -18,9 +18,10 @@ interface CloudinaryOptions {
 }
 export const cloudyUrl = (
   src: string,
+  cloudinaryName: string = ENV.CLOUDINARY_NAME ?? 'demo',
   options: CloudinaryOptions = { quality: 'auto' }
 ) =>
-  `https://res.cloudinary.com/${ENV.CLOUDINARY_NAME}/image/fetch/f_auto,q_${options.quality}/${src}`
+  `https://res.cloudinary.com/${cloudinaryName}/image/fetch/f_auto,q_${options.quality}/${src}`
 
 export const getNameFromUrl = (url: string = '') => {
   const regex = /[^/]*$/.exec(url)
@@ -48,12 +49,21 @@ export const downloadImage = async (imageSrc: string) => {
 export const downloadImageAsZip = async (urls: string[]) => {
   const imgPromises = urls.map((src) => fetch(src))
   const images = await Promise.allSettled(imgPromises)
+  console.log(images)
   const zip = new JSZip()
+  const wrongImags = images.filter(
+    (i) => i.status === 'fulfilled' && !i.value.ok
+  )
+  if (wrongImags.length) {
+    // throw new Error('Some images are not available')
+    return await Promise.reject('Some images are not available')
+  }
   images
-    .filter((i) => i.status === 'fulfilled')
+    .filter((i) => i.status === 'fulfilled' && i.value.ok)
     .forEach((d: any, i) => {
       const name = getNameFromUrl(urls[i])
       zip?.file(name, d.value?.blob())
     })
+
   return await zip.generateAsync({ type: 'blob' })
 }
