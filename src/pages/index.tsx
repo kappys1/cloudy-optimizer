@@ -20,7 +20,8 @@ export default function Home({ data }: { data: string[] }) {
     optimization: 0,
     size: 0,
     sizeOptimized: 0,
-    src: ''
+    src: '',
+    cloudinaryName: ''
   })
   const [parent] = useAutoAnimate(/* optional config */)
 
