@@ -55,8 +55,7 @@ export const downloadImageAsZip = async (urls: string[]) => {
     (i) => i.status === 'fulfilled' && !i.value.ok
   )
   if (wrongImags.length) {
-    // throw new Error('Some images are not available')
-    return await Promise.reject('Some images are not available')
+    throw new Error('Some images are not available')
   }
   images
     .filter((i) => i.status === 'fulfilled' && i.value.ok)
